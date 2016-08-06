@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+	{% block head %}
+	{% block styles%}
+	<!-- bootstrap -->
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" cdn='bootstrap'>
+	<style type="text/css">
+		em {color: red; font: italic;}
+	</style>
+	{% endblock styles%}
+	<script type="text/javascript" src="/static/js/jquery.js"></script>
+	<script type="text/javascript" src="/static/js/bootstrap.js"></script>
+
+	{% block morescript%}
+	<script type="text/javascript" src="/static/js/script.js"></script>
+	{% endblock morescript%}
+
+	{% endblock head%}
+	<body>
+		{% import "./bootstrap/wtf.html" as wtf %}
+		{% import "./bootstrap/fixes.html" as fixes %}
+		{% import "./bootstrap/utils.html" as util %}
+
+		<div class="container">
+			{% block message %}
+			<div class="container">
+				{% for message in get_flashed_messages() %}
+				<div class="alert alert-danger">
+					<button type="button" class="close" data-dismiss="alert">×</button> {{ message }}
+				</div>
+				{% endfor %}
+			</div>
+			{% endblock  message%}
+			
+			{% block content %}
+			{% endblock content %}
+		</div>
+	</body>
+</head>
+
+</html>

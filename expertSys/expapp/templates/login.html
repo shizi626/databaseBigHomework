@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+<html>
+<head>
+	{{ super() }}
+	{% block morescript%}
+	<script type="text/javascript">
+	function jump (argument) {
+		window.location.href="{{url_for('users.showReg')}}"
+	}
+	</script>
+	{% endblock morescript%}
+</head>
+<body>
+	{% block content %}
+		{{super()}}
+		<div class="login">
+			<form class="form-signin" action="{{url_for('users.showLogin')}}" method="POST">
+				<h2 class="form-signin-heading" align="center">专家征集系统登录</h2>
+				
+				{{ wtf.quick_form(form)}}
+				<button class="btn btn-default" type="submit" onclick="jump()">注册</button>
+			</form>
+		</div>
+	{% endblock content %}
+</body>
+</html>

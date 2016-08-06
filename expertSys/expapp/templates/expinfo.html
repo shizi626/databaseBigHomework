@@ -1,0 +1,476 @@
+{% extends "base.html"%}
+
+{% block content %}
+<div class="col-md-3">
+	<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href="{{url_for('users.mngrindex')}}" >首页</a></li>
+			<li><a href="{{url_for('.showsearch')}}">专家信息维护</a></li>
+			<li><a href="{{url_for('users.logout')}}">退出登录</a></li>
+		</ul>
+
+	</nav>
+</div>
+<div class="col-md-9">
+	<div>
+		<h1 style="text-align: center;">专家详细信息</h1>
+	</div>
+	<table class="table table-bordered">
+		<thead>
+			<tr><th colspan='4'>
+				<span id="username">{{expert.username}}</span>的基本信息：
+			</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					专家证书编号：
+				</td>
+				<td id="expCertificateID">
+					{% if expert.expCertificateID %}
+					{{expert.expCertificateID}}
+					{% else %}
+					无
+					{% endif %}
+				</td>
+				<td>
+					状态：
+				</td>
+				<td style="color:red" id="verifyState">
+					{% if expert.verifyState %}
+					{{expert.verifyState}}
+					{% else %}
+					未填写
+					{% endif %}
+				</td>
+			</tr>
+			<tr >
+				<td>
+					证书有效时间
+				</td>
+				<td id="certificateValidTime">
+					{% if expert.certificateValidTime %}
+					{{expert.certificateValidTime}}
+					{% else %}
+					无
+					{% endif %}
+				</td>
+				<td rowspan=4 colspan=2 style="text-align:center">
+					<img id="Pic" src="/static/img/head.jpg" alt="/static/img/defaulthead.jpg" class="img-thumbnail" width="140" height="140">
+				</td>
+			</tr>
+			<tr >
+				<td>
+					专家姓名：
+				</td>
+				<td>
+					{% if expert.expName %}
+					{{expert.expName}}
+					{% else %}
+					未填写
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					专家性别：
+				</td>
+				<td>
+					{% if expert.expSex %}
+					{{expert.expSex}}
+					{% else %}
+					未填写
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					出生日期：
+				</td>
+				<td>
+					{% if expert.birthday %}
+					{{expert.birthday}}
+					{% else %}
+					未填写
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>政治面貌：</td>
+				<td>
+					{% if expert.politicalStatus %}
+					{{expert.politicalStatus}}
+					{% else %}
+					未填写
+					{% endif %}
+				</td>
+				<td>证件类型：</td>
+				<td>
+					{% if expert.IDType %}
+					{{expert.IDType}}
+					{% else %}
+					未填写
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>颁发机构:</td>
+				<td>{% if expert.authority %}
+					{{expert.authority}}
+					{% else %}
+					未填写
+					{% endif %}
+
+					<td>证件编号：</td>
+					<td>
+						{% if expert.IDNumber %}
+						{{expert.IDNumber}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>最高学历：</td>
+					<td>
+						{% if expert.highestSchooling %}
+						{{expert.highestSchooling}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+					<td>最高学位：</td>
+					<td>
+						{% if expert.highestDegree %}
+						{{expert.highestDegree}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>职称：</td>
+					<td>
+						{% if expert.title %}
+						{{expert.title}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+					<td>证书编号：</td>
+					<td>
+						{% if expert.titleID %}
+						{{expert.titleID}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>职务：</td>
+					<td>
+						{% if expert.job %}
+						{{expert.job}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+					<td>从业时长：</td>
+					<td>
+						{% if expert.workingLength %}
+						{{expert.workingLength}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>是否退休：</td>
+					<td>
+						{% if expert.isRetired %}
+						{{expert.isRetired}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+					<td>是否兼职：</td>
+					<td>
+						{% if expert.isPart_time %}
+						{{expert.isPart_time}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>工作单位：</td>
+					<td>
+						{% if expert.workingUnit %}
+						{{expert.workingUnit}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>详细通信地址：</td>
+					<td>
+						{% if expert.address %}
+						{{expert.address}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>邮政编码：</td>
+					<td>
+						{% if expert.zipcode %}
+						{{expert.zipcode}}
+						{% else %}
+						未填写
+						{% endif %}
+
+					</td>
+					<td>电子邮件：</td>
+					<td>
+						{% if expert.email %}
+						{{expert.email}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>移动电话：</td>
+					<td>
+						{% if expert.mobilePhone %}
+						{{expert.mobilePhone}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+					<td>家庭电话：</td>
+					<td>
+						{% if expert.homePhone %}
+						{{expert.homePhone}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>毕业院校及专业：</td>
+					<td>
+						{% if expert.graduateSchool %}
+						{{expert.graduateSchool}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td rowspan='{{expQuali|length+1}}' style="vertical-align:middle">资格证书名及编号</td>
+					<td>资格证书名</td>
+					<td>资格证书编号</td>
+					
+				</tr>
+					{% for quali in expQuali %}
+				<tr>
+					<td>{{quali.qualificationID}}</td>
+					<td>{{quali.qualificationName}}</td>
+				</tr>
+					{% endfor %}
+				<tr>
+					<td>评审领域</td>
+					<td>
+						{% if expert.appraisefield1 %}
+						{{expert.appraisefield1}}
+						{% else %}
+						领域1未填写
+						{% endif %}
+					</td>
+					<td>
+						{% if expert.appraisefield2 %}
+						{{expert.appraisefield2}}
+						{% else %}
+						领域2未填写
+						{% endif %}
+					</td>
+				</tr>
+			</tbody>
+		</table> 
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<td colspan="4">评估/评审经历</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>时间</td>
+					<td>任务名称</td>
+					<td>任务描述</td>
+					<td>任务类型</td>
+				</tr>
+				<tr>
+					{% for appraise in expAppraiseExp%}
+					<td>{{appraise.time}}</td>
+					<td>{{appraise.appraiseName}}</td>
+					<td>{{appraise.appraiseDesc}}</td>
+					<td>{{appraise.appraiseType}}</td>
+					{% endfor %}
+				</tr>
+			</tbody>
+		</table> 
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<td colspan="5">工作经历</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>起始时间</td>
+					<td>终止时间</td>
+					<td>工作单位</td>
+					<td>职务</td>
+					<td>证明人</td>
+				</tr>
+				<tr>
+					{% for work in expWorkExp %}
+					<td>{{work.startTime}}</td>
+					<td>{{work.endTime}}</td>
+					<td>{{work.workingUnit}}</td>
+					<td>{{work.job}}</td>
+					<td>{{work.referee}}</td>
+					{% endfor %}
+				</tr>
+			</tbody>
+		</table>
+		<table class="table table-bordered">
+			<thead>
+				<tr><th>业务专长（不超过300字）</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan="4"  colspan="8" >
+						{% if expert.skill %}
+						{{expert.skill}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table table-bordered">
+			<thead>
+				<tr><th>工作业绩（不超过300字）</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan="4"  colspan="8" >
+						{% if expert.achievements %}
+						{{expert.achievements}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+			</tbody>
+		</table> 
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<td colspan="2">回避单位</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						单位名称
+					</td>
+					<td>
+						是否工作单位
+					</td>
+				</tr>
+				<tr>
+					{% for avoid in expAvoid %}
+					<td>{{avoid.unitName}}</td>
+					<td>{{avoid.isWorkingUnit}}</td>
+					{% endfor %}
+				</tr>
+			</tbody>
+		</table>
+		<table class="table table-bordered">
+			<thead>
+				<tr><th>其他说明（不超过300字）</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan="4"  colspan="8" >
+						{% if expert.otherDesc %}
+						{{expert.otherDesc}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table "table table-bordered">
+			<tr class="btn-group">
+				<td>
+					<button type="button" id="passExp" class="btn btn-primary btn-sm">同意申请</button>
+					<button type="button" id="denyExp" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#denyModal">驳回申请</button>
+					<button type="button" id="stopExp" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#stopModal">终止资格</button>
+				</td>
+			</tr>
+			<div id="denyModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" >驳回原因</h4>
+							已输入<span id="denyInput">0</span>字，还可以输入<span id="denyLeft">500</span>字
+						</div>
+						<div class="modal-body">
+							<form >
+								<div class="form-group">
+									<Textarea  style='resize: none;' class="form-control" placeholder="驳回原因" required rows="10" id="denyReason">
+									</Textarea>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary" id="denySubmit">确认</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="stopModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" >终止原因</h4>
+							已输入<span id='stopInput'>0</span>字，还可以输入<span id="stopLeft">500</span>字
+						</div>
+						<div class="modal-body">
+							<form >
+								<div class="form-group" >
+									<Textarea  style='resize: none;' class="form-control"  id="stopReason" placeholder="终止原因" required rows="10" >
+									</Textarea>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" id="stopSubmit" class="btn btn-primary">确认</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</table>
+	</div>
+	{% endblock content %}

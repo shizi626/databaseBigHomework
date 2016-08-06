@@ -1,0 +1,572 @@
+{% extends "base.html" %}
+{% block morescript%}
+<script type="text/javascript" src="/static/js/expTable.js"></script>
+{{super()}}
+{% endblock morescript%}
+<body>
+	{% block content %}
+	<div class="col-md-3">
+		<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="{{url_for('users.showRegIndex')}}" >首页</a><br/></li>
+				<li><a href="{{url_for('users.showRegTable')}}" >专家信息填入</a><br/></li>
+				<li><a href="{{url_for('users.editpsw')}}" >密码修改</a><br/></li>
+				<li><a href="{{url_for('users.logout')}}">退出登录</a></li>
+			</ul>
+
+		</nav>
+	</div>
+
+	<div class="col-md-9">
+		<div >
+			<button id="editInfo" class='btn btn-default'>编辑</button>
+			<button id="saveInfo" class='btn btn-default'>保存</button>
+			<button id="submitInfo" class='btn btn-default'>提交</button>
+		</div>
+		<table id='t_1' class="table table-bordered">
+			<thead>
+				<tr><th colspan='4'>基本信息</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						专家证书编号：
+					</td>
+					<td id="expCertificateID">
+						{% if expert.expCertificateID %}
+						{{expert.expCertificateID}}
+						{% else %}
+						无
+						{% endif %}
+					</td>
+					<td>
+						状态：
+					</td>
+					<td id="verifyState" style="color:red">
+						{% if expert.verifyState %}
+						{{expert.verifyState}}
+						{% else %}
+						未填写
+						{% endif %}
+					</td>
+				</tr>
+				<tr >
+					<td>
+						证书有效时间
+					</td>
+					<td id="certificateValidTime">
+						{% if expert.certificateValidTime %}
+						{{expert.certificateValidTime}}
+						{% else %}
+						无
+						{% endif %}
+					</td>
+					<td rowspan=4 colspan=2 style="text-align:center">
+						<img id="Pic" src="/static/img/head.jpg" alt="/static/img/defaulthead.jpg" class="img-thumbnail" width="140" height="140">
+					</td>
+				</tr>
+				<tr >
+					<td>
+						专家姓名：<em>*</em>
+					</td>
+					<td>
+						<input id="expName" type="text" class="form-control" aria-describedby="Name"  placeholder="姓名" base="true" required >
+					</td>
+				</tr>
+				<tr>
+					<td>
+						专家性别：<em>*</em>
+					</td>
+					<td id="expSex">
+						<select class="form-control" base="true">
+							<option>女</option>
+							<option>男</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						出生日期：<em>*</em>
+					</td>
+					<td>
+						<input id="birthday" type="date" class="form-control" id="Birthday" aria-describedby="Name" dataformatas="yyyy-mm-dd" placeholder="xxxx-xx-xx" base="true" required>
+					</td>
+				</tr>
+				<tr>
+					<td>政治面貌：<em>*</em></td>
+					<td>
+						<input id="politicalStatus" type="text" class="form-control" aria-describedby="Name" required base="true">
+					</td>
+					<td>证件类型<em>*</em></td>
+					<td>
+						<select id="IDType" class="form-control" base="true">
+							<option>居民身份证</option>
+							<option>护照</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>颁发机构:<em>*</em></td>
+					<td>
+						<input id="authority" type="text" class="form-control" aria-describedby="Name" required base="true">
+					</td>
+					<td>证件编号：<em>*</em></td>
+					<td>
+						<input id="IDNumber" type="text" class="form-control" aria-describedby="Name" required base="true">
+					</td>
+				</tr>
+				<tr>
+					<td>最高学历：<em>*</em></td>
+					<td>
+						<select id="highestSchooling" class="form-control" base="true">
+							<option>博士研究生</option>
+							<option>硕士研究生</option>
+							<option>学士</option>
+							<option>大专</option>
+							<option>中专</option>
+							<option>中学</option>
+							<option>小学</option>
+						</select>
+					</td>
+					<td>最高学位：<em>*</em></td>
+					<td>
+						<select id="highestDegree" class="form-control" base="true">
+							<option>博士</option>
+							<option>硕士</option>
+							<option>学士</option>
+							<option>无</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>职称：<em>*</em></td>
+					<td><input id="title" type="text" class="form-control" aria-describedby="Name" required base="true"></td>
+					<td>证书编号：<em>*</em></td>
+					<td><input id="titleID" type="text" class="form-control" aria-describedby="Name" required base="true"></td>
+				</tr>
+				<tr>
+					<td>职务：<em>*</em></td>
+					<td><input id="expjob" type="text" class="form-control" aria-describedby="Name" required base="true"></td>
+					<td>从业时长：</td>
+					<td><select id="workingLength" class="form-control" base="true">
+						<option>五年及以上</option>
+						<option>四年</option>
+						<option>三年</option>
+						<option>两年</option>
+						<option>一年及以下</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>是否退休：<em>*</em></td>
+					<td><select id="isRetired" class="form-control" base="true">
+						<option>是</option>
+						<option>否</option>
+					</select></td>
+					<td>是否兼职：<em>*</em></td>
+					<td><select id="isPart_time" class="form-control" base="true">
+						<option>是</option>
+						<option>否</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>工作单位：<em>*</em></td>
+					<td><input id="expworkingUnit" type="text" class="form-control" aria-describedby="Name" required base="true"></td>
+				</tr>
+				<tr>
+					<td>详细通信地址：<em>*</em></td>
+					<td><input id="address" type="text" class="form-control" aria-describedby="Name" required base="true"></td>
+				</tr>
+				<tr>
+					<td>邮政编码：<em>*</em></td>
+					<td><input id="zipcode" type="text" class="form-control" aria-describedby="Name" required base="true"></td>
+					<td>电子邮件：<em>*</em></td>
+					<td><input id="email" type="text" class="form-control" aria-describedby="EmailStatus" required base="true"></td>
+				</tr>
+				<tr>
+					<td>移动电话：<em>*</em></td>
+					<td><input id="mobilePhone" type="text" class="form-control" aria-describedby="Name" required base="true"></td>
+					<td>家庭电话：<em>*</em></td>
+					<td><input id="homePhone" type="text" class="form-control" aria-describedby="Name" required base="true"></td>
+				</tr>
+				<tr>
+					<td>毕业院校及专业：<em>*</em></td>
+					<td><input id="graduateSchool" type="text" class="form-control" aria-describedby="Name" required base="true"></td>
+				</tr>
+				<tr id='qualiHeadRow'>
+					<td rowspan='{{expQuali|length+1}}' style="vertical-align:middle" id="qualiHead">资格证书名及编号</td>
+					<td>资格证书编号</td>
+					<td>资格证书名</td>
+					<td>
+						<button type="button" data-toggle="modal" data-target="#qualificationModal" class="btn btn-default" id="newQuali">增加资格证书</button>
+
+						<!-- qualification modal-->
+						<div id="qualificationModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+										<h4 class="modal-title">增加资格证书</h4>
+
+									</div>
+									<div class="modal-body">
+										<form>
+											<div class="form-group" id="qualiNoForm">
+												<label>资格证书编号</label>
+												<input type="number" min="0" class="form-control" id="qualiNo" aria-describedby="Name"  placeholder="资格证书编号" btvd-class='btvdclass' btvd-err="必须输入数字！" required />
+											</div>
+											<div class="form-group" id="qualiNameForm">
+												<label>资格证书名</label>
+												<input type="text" class="form-control" id="qualiName" aria-describedby="Name"  placeholder="资格证书名" required />
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" id="addQuali">确定</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</td>
+				</tr>
+				{% for quali in expQuali %}
+				<tr>
+					<td>{{quali.qualificationID}}</td>
+					<td>{{quali.qualificationName}}</td>
+					<td><button type="button" value={{quali.qualificationID}} class="deleteQualification btn btn-default" id='deleteQualification'>删除</button></td>
+				</tr>
+				{% endfor %}
+				<tr>
+					<td>评审领域<em>*</em></td>
+					<td id="field1">
+						{% if expert.appraisefield1%}
+						{{expert.appraisefield1}}
+						{% else %}
+						无
+						{% endif %}
+					</td>
+					<td id="field2">
+						{% if expert.appraisefield2%}
+						{{expert.appraisefield2}}
+						{% else %}
+						无
+						{% endif %}
+					</td>
+					<td>
+						<button type="button" data-toggle="modal" data-target="#appraisefieldModal" class="btn btn-default">选择评审领域</button>
+
+						<!-- appraisefield modal-->
+						<div id="appraisefieldModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+										<h4 class="modal-title">选择评审领域</h4>
+
+									</div>
+									<div class="modal-body">
+										<table id="fieldTable" class="table table-bordered">
+											<th><p><em>评审领域最多两项！</em></p></th>
+											<tr>
+												<td>
+													<input  type="checkbox" value="幼儿园教育评估"/>
+													幼儿园教育评估
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<input  type="checkbox" value="小学教育评估"/>
+													小学教育评估
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<input  type="checkbox" value="中学教育评估"/>
+													中学教育评估
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<input  type="checkbox" value="中职教育评估"/>
+													中职教育评估
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<input  type="checkbox" value="高职教育评估"/>
+													高职教育评估
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<input  type="checkbox" value="高校教育评估"/>
+													高校教育评估
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" id="addAppraise">确定</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table> 
+		<table id="t_2" class="table table-bordered">
+			<thead>
+				<tr>
+					<td colspan="4">评估/评审经历</td>
+					<td>
+						<button type="button" data-toggle="modal" data-target="#AppraiseExperienceModal" class="btn btn-default">增加评估/评审经历</button>
+
+						<!-- AppraiseExperience modal-->
+						<div id="AppraiseExperienceModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+										<h4 class="modal-title">增加评估/评审经历</h4>
+
+									</div>
+									<div class="modal-body">
+										<form>
+											<div class="form-group" id="appraiseTimeForm">
+												<label>时间</label>
+												<input id="appraiseTime" type="date" dataformatas="yyyy-mm-dd" class="form-control" aria-describedby="Name"  placeholder="xxxx-xx-xx"  required>
+											</div>
+											<div class="form-group" id="appraiseNameForm">
+												<label>任务名称</label>
+												<input id="appraiseName" type="text" class="form-control" aria-describedby="Name"  placeholder="任务名称" required />
+											</div>
+											<div class="form-group" id="appraiseDescForm">
+												<label>任务描述</label>
+												<input id="appraiseDesc" type="text" class="form-control" aria-describedby="Name"  placeholder="任务描述" required />
+											</div>
+											<div class="form-group" id="appraiseTypeForm">
+												<label>任务类型</label>
+												<input id="appraiseType" type="text" class="form-control" aria-describedby="Name"  placeholder="任务类型" required />
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" id="addAppraiseExp">确定</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr id='appraiseExperienceFormHead'>
+					<td>时间</td>
+					<td>任务名称</td>
+					<td>任务描述</td>
+					<td>任务类型</td>
+					<td>操作</td>
+				</tr>
+				{% for appExp in expAppraiseExp %}
+				<tr>
+					<td>{{appExp.time}}</td>
+					<td>{{appExp.appraiseName}}</td>
+					<td>{{appExp.appraiseDesc}}</td>
+					<td>{{appExp.appraiseType}}</td>
+					<td>
+						<button type="button" id="deleteAppraiseExperience"class="btn btn-default" >删除</button>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table> 
+		<table id="t_3" class="table table-bordered">
+			<thead>
+				<tr>
+					<td colspan="5">工作经历</td>
+					<td>
+						<button type="button" data-toggle="modal" data-target="#WorkingExperienceModal" class="btn btn-default">增加工作经历</button>
+
+						<!-- WorkingExperience modal-->
+						<div id="WorkingExperienceModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+										<h4 class="modal-title">增加工作经历</h4>
+
+									</div>
+									<div class="modal-body">
+										<form>
+											<div class="form-group" id="startTimeForm">
+												<label>起始时间</label>
+												<input id="startTime" type="date" dataformatas="yyyy-mm-dd" class="form-control" aria-describedby="Name"  placeholder="xxxx-xx-xx"  required>
+											</div>
+											<div class="form-group" id="endTimeForm">
+												<label>终止时间</label>
+												<input id="endTime" type="date" dataformatas="yyyy-mm-dd" class="form-control" aria-describedby="Name"  placeholder="xxxx-xx-xx"  required>
+											</div>
+											<div class="form-group" id="workingUnitForm">
+												<label>工作单位</label>
+												<input id="workingUnit" type="text" class="form-control" aria-describedby="Name"  placeholder="工作单位" required />
+											</div>
+											<div class="form-group" id="jobForm">
+												<label>职务</label>
+												<input id="job" type="text" class="form-control" aria-describedby="Name"  placeholder="职务" required />
+											</div>
+											<div class="form-group" id="refereeForm">
+												<label>证明人</label>
+												<input id="referee" type="text" class="form-control" aria-describedby="Name"  placeholder="证明人" required />
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" id="addWorkingExp">确定</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr id="workingExperienceFormHead">
+					<td>起始时间</td>
+					<td>终止时间</td>
+					<td>工作单位</td>
+					<td>职务</td>
+					<td>证明人</td>
+					<td>操作</td>
+				</tr>
+				{% for workExp in expWorkExp %}
+				<tr>
+					<td>{{workExp.startTime}}</td>
+					<td>{{workExp.endTime}}</td>
+					<td>{{workExp.workingUnit}}</td>
+					<td>{{workExp.job}}</td>
+					<td>{{workExp.referee}}</td>
+					<td>
+						<button <type='button' id='deleteWorkingExperience' class='btn btn-default'>删除</button>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<table class="table table-bordered">
+			<thead>
+				<tr><th>业务专长（不超过300字）</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan="4"  colspan="8" >
+						<Textarea id="skill" style='resize: none;' class="form-control" required rows="10" ></Textarea>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table table-bordered">
+			<thead>
+				<tr><th>工作业绩（不超过300字）</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan="4"  colspan="8" >
+						<Textarea id="achievements" style='resize: none;' class="form-control" required rows="10" ></Textarea>
+					</td>
+				</tr>
+			</tbody>
+		</table> 
+		<table id='t_4' class="table table-bordered">
+			<thead>
+				<tr>
+					<td colspan="2">回避单位</td>
+					<td>
+						<button type="button" data-toggle="modal" data-target="#AvodingUnitModal" class="btn btn-default">增加回避单位</button>
+
+						<!-- AvodingUnit modal-->
+						<div id="AvodingUnitModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+										<h4 class="modal-title">增加回避单位</h4>
+
+									</div>
+									<div class="modal-body">
+										<form>
+											<div class="form-group" id="avoidUnitNameForm">
+												<label>单位名称</label>
+												<input id="avoidUnitName" type="text" class="form-control" aria-describedby="Name"  placeholder="单位名称" required />
+											</div>
+											<div class="form-group" id="IsWorkingUnitForm">
+												<label>是否工作单位</label>
+												<select id="IsWorkingUnit" class="form-control">
+													<option>是</option>
+													<option>否</option>
+												</select>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" id="addWorkingUnit">确定</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr id="avodingUnitFormHead">
+					<td>
+						单位名称
+					</td>
+					<td>
+						是否工作单位
+					</td>
+					<td>
+						操作
+					</td>
+				</tr>
+				{% for avoid in expAvoid %}
+				<tr>
+					<td>{{avoid.unitName}}</td>
+					<td>{{avoid.isWorkingUnit}}</td>
+					<td>
+						<button <type='button' id='deleteAvoidingUnit' class='btn btn-default'>删除</button>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<table class="table table-bordered">
+			<thead>
+				<tr><th>其他说明（不超过300字）</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan="4"  colspan="8" >
+						<Textarea id="otherDesc" style='resize: none;' class="form-control" required rows="10" ></Textarea>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	{% endblock content %}
+</body>

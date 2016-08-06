@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+	{% block content %}
+<div class="col-md-3">
+	<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href="{{url_for('users.mngrindex')}}" >首页</a><br/></li>
+			<li><a href="{{url_for('users.logout')}}">退出登录</a></li>
+		</ul>
+
+	</nav>
+</div>
+<div class="col-md-9">
+	<div class="container">
+		<div>
+			<h1 style="text-align: center;">专家信息维护</h1>
+		</div>
+		<form class="form-inline" id="queryForm">
+			<label for="fieldQuery">评审领域：</label>
+			<select id="fieldQuery" class="form-control" width="150">
+				<option></option>
+				<option>幼儿园教育评估</option>
+				<option>小学教育评估</option>
+				<option>中学教育评估</option>
+				<option>中职教育评估</option>
+				<option>高职教育评估</option>
+				<option>高校教育评估</option>
+			</select>
+			<label for="stateQuery">状态：</label>
+			<select id="stateQuery" class="form-control" >
+				<option></option>
+				<option>填写中</option>
+				<option>被驳回</option>
+				<option>审核中</option>
+				<option>失效</option>
+				<option>可用</option>
+			</select>
+			<button id="query" type='submit' class="btn btn-primary">查询</button>
+		</form>
+	</div> 
+	<table class="table table-bordered">
+		<tbody>
+			<tr id="searchResult">
+				<td>
+					专家编号
+				</td>
+				<td>
+					专家名
+				</td>
+				<td>
+					工作单位
+				</td>
+				<td>
+					联系电话
+				</td>
+				<td>
+					入库类型
+				</td>
+				<td>
+					状态
+				</td>
+				<td>
+					操作
+				</td>
+			</tr>
+			{% for one in expList %}
+				<tr>
+					<td>
+						{% if one.expCertificateID%}
+							{{one.expCertificateID}}
+						{% else %}无
+						{% endif %}
+					</td>
+					<td>{{one.expName}}</td>
+					<td>{{one.workingUnit}}</td>
+					<td>{{one.mobilePhone}}</td>
+					<td>{{one.type}}</td>
+					<td>{{one.verifyState}}</td>
+					<td>
+						<a href="{{ url_for('.admin_expInfo', expname=one.username) }}">显示评审项目</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock content %}

@@ -1,0 +1,22 @@
+<!DOCTYPE>
+{% extends "base.html" %}
+<html>
+{% block head %}
+{{super()}}
+{% endblock head %}
+<body>
+	{% block message %}
+	{{super()}}
+	{% endblock message %}
+	{% block content %}
+		<h1 align="center">
+			教育研究院专家征集系统——专家注册
+		</h1>
+		<form action="{{url_for('users.showReg')}}" method="POST">
+			{{ wtf.quick_form(form)}}
+			<a href="{{url_for('.showLogin')}}" type="button" class="btn btn-default">登录</a>
+			<button class="btn btn-default" id="regReset">重置</button>
+		</form>
+	{% endblock content %}
+</body>
+</html>

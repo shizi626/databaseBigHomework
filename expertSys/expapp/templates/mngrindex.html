@@ -1,0 +1,21 @@
+
+<html>
+{% extends "base.html" %}
+<body>
+	{% block content %}
+	<div class="col-md-3">
+		<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="{{url_for('users.mngrindex')}}" >首页</a><br/></li>
+				<li><a href="{{url_for('users.logout')}}">退出登录</a></li>
+			</ul>
+
+		</nav>
+	</div>
+	<div class="col-md-9">
+		<p>
+			当前有<a href="{{url_for('users.showsearch')}}">{{number}}</a>个专家待审核
+		</p>
+	</div>
+	{% endblock content %}
+</body>

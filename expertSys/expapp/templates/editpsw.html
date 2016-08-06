@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+{% extends 'base.html' %}
+
+<body>
+	{% block content %}
+	<div class="col-md-3">
+		<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="{{url_for('users.showRegIndex')}}" >首页</a><br/></li>
+				<li><a href="{{url_for('users.showRegTable')}}" >专家信息填入</a><br/></li>
+				<li><a href="{{url_for('users.editpsw')}}" >密码修改</a><br/></li>
+				<li><a href="{{url_for('users.logout')}}">退出登录</a></li>
+			</ul>
+
+		</nav>
+	</div>
+	<div class="col-md-9">
+		<form action="{{url_for('users.editpsw')}}" method="POST">
+			{{ wtf.quick_form(form)}}
+			<button class="btn btn-default" id="resetChangePsw">重置</button>
+		</form>
+	</div>
+	{% endblock content %}
+</body></html>

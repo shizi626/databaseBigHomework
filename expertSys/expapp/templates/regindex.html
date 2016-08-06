@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+<body>
+	{% block content %}
+	<div class="row">
+
+		<div class="col-md-3">
+			<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
+				<ul class="nav nav-pills nav-stacked">
+					<li><a href="{{url_for('users.showRegIndex')}}" >首页</a><br/></li>
+					<li><a href="{{url_for('users.showRegTable')}}" >专家信息填入</a><br/></li>
+					<li><a href="{{url_for('users.editpsw')}}" >密码修改</a><br/></li>
+					<li><a href="{{url_for('users.logout')}}">退出登录</a></li>
+				</ul>
+
+			</nav>
+		</div>
+
+		<div class="col-md-9">
+
+			<div class="blog-header">
+				<h1 class="blog-title">填表须知</h1>
+				<p class="lead blog-description">填写前请仔细阅读以下注意事项</p>
+				<table class="table table-hover">
+					<tr><td>1.带<span style="color:red">*</span>为必须填写，且在提交之后不能修改</td></tr>
+					<tr><td>2.证书编号和证书有效时间由管理员在审核通过之后进行填写，用户不得自己填写</td></tr>
+					<tr><td>3.日期均从日历中选择，用户不得自己填写</td></tr>
+					<tr><td>4.回避单位是用户曾经工作过的单位或者正在工作的单位</td></tr>
+				</table>
+			</div>
+			<div class="blog-header">
+				{% if reason %}
+					<h1 class="blog-title">通知</h1>
+					<p class="lead blog-description">您好，您的专家申请处于<em>{{ expState }}</em>状态，原因是：<em>{{reason}}</em></p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	{% endblock content %}
+
+</body>
